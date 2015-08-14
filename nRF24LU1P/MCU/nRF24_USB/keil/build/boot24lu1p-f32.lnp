@@ -1,0 +1,13 @@
+".\build\main.obj",
+".\build\usb.obj",
+".\build\bootloader.obj",
+".\build\usb_desc_bootloader.obj",
+".\build\STARTUP.obj",
+".\build\uart_woisr.obj",
+".\build\hal_uart.obj",
+".\build\printf.obj" 
+TO ".\build\boot24lu1p-f32" 
+
+PRINT(".\list\boot24lu1p-f32.map") REMOVEUNUSED 
+CLASSES (XDATA (X:0x8000-X:0x87FF), HDATA (X:0x8000-X:0x87FF), CODE (C:0x0-C:0x3FFF, C:0x7800-C:0x7FFF), CONST (C:0x0-C:0x3FFF, C:0x7800-C:0x7FFF), 
+ECODE (C:0x0-C:0x3FFF, C:0x7800-C:0x7FFF), HCONST (C:0x0-C:0x3FFF, C:0x7800-C:0x7FFF)) 

@@ -1,0 +1,1 @@
+"..\bootloader.c" OMF2 ROM(COMPACT) OPTIMIZE (9,SPEED) BROWSE MODC2 INCDIR(..\..\..\hal;..\..\..\hal\nrf24lu1p;..\..\..\compiler\c51;..\..\..\compiler\common;..\TPF) PRINT(.\list\bootloader.lst) TABS (2) PREPRINT(.\list\bootloader.i) OBJECT(.\build\bootloader.obj)

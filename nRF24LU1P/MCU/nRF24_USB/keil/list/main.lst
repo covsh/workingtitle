@@ -1,0 +1,62 @@
+C51 COMPILER V9.53.0.0   MAIN                                                              08/12/2015 18:21:31 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\build\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\main.c OMF2 ROM(COMPACT) OPTIMIZE(9,SPEED) BROWSE MODC2 INCDIR(..\..\
+                    -..\hal;..\..\..\hal\nrf24lu1p;..\..\..\compiler\c51;..\..\..\compiler\common;..\TPF) PRINT(.\list\main.lst) TABS(2) PREP
+                    -RINT(.\list\main.i) OBJECT(.\build\main.obj)
+
+line level    source
+
+   1          #include <stdint.h>
+   2          #include "bootloader.h"
+   3          #include "config.h"
+   4          #include "nrf24lu1p.h"
+   5          #include "hal_uart.h"
+   6          #include "printf.h"
+   7          #include "usart_woist.h"
+   8          
+   9          
+  10          void putchar(int c)
+  11          {
+  12   1        //hal_uart_putchar(c);
+  13   1        uart_send_wait_for_complete(c);
+  14   1      }
+  15          
+  16          
+  17          // Repeated putchar to print a string
+  18          void putstring(char *s)
+  19          {
+  20   1        while(*s != 0)
+  21   1          putchar(*s++);
+  22   1      }
+  23          
+  24          
+  25          
+  26          void main(void)
+  27          {
+  28   1          usart_init();
+  29   1          tfp_printf("\n\rHello World for TPF\r");  
+  30   1          bootloader(); // Will never return
+  31   1        
+  32   1          while(1);
+  33   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     61    ----
+   CONSTANT SIZE    =     23    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

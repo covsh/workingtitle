@@ -1,0 +1,1 @@
+"..\..\..\hal\hal_delay.c" OMF2 ROM(COMPACT) OPTIMIZE (9,SPEED) BROWSE MODC2 INCDIR(..\..\..\hal;..\..\..\hal\nrf24lu1p;..\..\..\compiler\c51;..\..\..\compiler\common) DEBUG PRINT(.\list\hal_delay.lst) TABS (2) OBJECT(.\build\hal_delay.obj)

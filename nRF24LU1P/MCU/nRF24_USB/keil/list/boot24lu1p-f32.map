@@ -1,0 +1,740 @@
+LX51 LINKER/LOCATER V4.66.30.0                                                          08/14/2015  11:46:57  PAGE 1
+
+
+LX51 LINKER/LOCATER V4.66.30.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\LX51.EXE .\build\main.obj, .\build\usb.obj, .\build\bootloader.obj, .\build\usb_desc_bootloader.obj, 
+>> .\build\STARTUP.obj, .\build\uart_woisr.obj, .\build\hal_uart.obj, .\build\printf.obj TO .\build\boot24lu1p-f32 PRINT
+>>  (.\list\boot24lu1p-f32.map) REMOVEUNUSED CLASSES (XDATA (X:0X8000-X:0X87FF), HDATA (X:0X8000-X:0X87FF), CODE (C:0X0-
+>> C:0X3FFF, C:0X7800-C:0X7FFF), CONST (C:0X0-C:0X3FFF, C:0X7800-C:0X7FFF), ECODE (C:0X0-C:0X3FFF, C:0X7800-C:0X7FFF), H
+>> CONST (C:0X0-C:0X3FFF, C:0X7800-C:0X7FFF))
+
+
+CPU MODE:     8051 MODE
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\build\main.obj (MAIN)
+         COMMENT TYPE 0: C51 V9.53.0.0
+  .\build\usb.obj (USB)
+         COMMENT TYPE 0: C51 V9.53.0.0
+  .\build\bootloader.obj (BOOTLOADER)
+         COMMENT TYPE 0: C51 V9.53.0.0
+  .\build\usb_desc_bootloader.obj (USB_DESC_BOOTLOADER)
+         COMMENT TYPE 0: C51 V9.53.0.0
+  .\build\STARTUP.obj (?C_STARTUP)
+         COMMENT TYPE 0: AX51 V3.12.0.0
+  .\build\uart_woisr.obj (UART_WOISR)
+         COMMENT TYPE 0: C51 V9.53.0.0
+  .\build\hal_uart.obj (HAL_UART)
+         COMMENT TYPE 0: C51 V9.53.0.0
+  .\build\printf.obj (PRINTF)
+         COMMENT TYPE 0: C51 V9.53.0.0
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CSTPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ILDPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?PLDPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CCASE)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?PLDIDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?PLDXDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?PLDPDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?PLDCODE)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\build\boot24lu1p-f32 (MAIN)
+
+BASE        START       END         USED      MEMORY CLASS
+==========================================================
+X:000000H   X:008000H   X:0087FFH   0002F8H   XDATA
+X:000000H   X:008000H   X:0087FFH             HDATA
+C:000000H   C:000000H   C:003FFFH   0009ABH   CODE
+            C:007800H   C:007FFFH               
+C:000000H   C:000000H   C:003FFFH   0001A2H   CONST
+            C:007800H   C:007FFFH               
+C:000000H   C:000000H   C:003FFFH             ECODE
+            C:007800H   C:007FFFH               
+B00:0000H   C:000000H   C:003FFFH             HCONST
+            C:007800H   C:007FFFH               
+I:000000H   I:000000H   I:00007FH   00004FH   DATA
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 2
+
+
+I:000000H   I:000000H   I:0000FFH   000051H   IDATA
+
+
+MEMORY MAP OF MODULE:  .\build\boot24lu1p-f32 (MAIN)
+
+
+START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
+=========================================================================
+
+* * * * * * * * * * *   D A T A   M E M O R Y   * * * * * * * * * * * * *
+000000H   000007H   000008H   ---    AT..     DATA           "REG BANK 0"
+000008H   000026H   00001FH   BYTE   UNIT     DATA           _DATA_GROUP_
+000027H   000039H   000013H   BYTE   UNIT     DATA           ?DT?PRINTF
+00003AH   000044H   00000BH   BYTE   UNIT     DATA           ?DT?USB
+000045H   00004AH   000006H   BYTE   UNIT     DATA           ?DT?HAL_UART
+00004BH   00004EH   000004H   BYTE   UNIT     DATA           ?DT?BOOTLOADER
+00004FH   00008EH   000040H   BYTE   UNIT     IDATA          ?ID?BOOTLOADER
+00008FH   00009EH   000010H   BYTE   UNIT     IDATA          ?ID?HAL_UART
+00009FH   00009FH   000001H   BYTE   UNIT     IDATA          ?STACK
+
+* * * * * * * * * * *   C O D E   M E M O R Y   * * * * * * * * * * * * *
+000000H   000002H   000003H   ---    OFFS..   CODE           ?CO?STARTUP?3
+000003H   000022H   000020H   BYTE   INBLOCK  CODE           ?PR?USART_INIT?UART_WOISR
+000023H   000025H   000003H   BYTE   OFFS..   CODE           ?HAL_UART?00023
+000026H   000056H   000031H   BYTE   INBLOCK  CODE           ?PR?USB
+000057H   00005FH   000009H   BYTE   INBLOCK  CODE           ?PR?_UART_SEND_WAIT_FOR_COMPLETE?UART_WOISR
+000060H   000062H   000003H   BYTE   INBLOCK  CODE           ?PR?_PUTCHAR?MAIN
+000063H   000065H   000003H   BYTE   OFFS..   CODE           ?BOOTLOADER?00063
+000066H   000228H   0001C3H   BYTE   INBLOCK  CODE           ?PR?_TFP_PRINTF?PRINTF
+000229H   000305H   0000DDH   BYTE   INBLOCK  CODE           ?PR?ISR_SUDAV?USB
+000306H   0003C3H   0000BEH   BYTE   INBLOCK  CODE           ?PR?USB_INIT?USB
+0003C4H   000481H   0000BEH   BYTE   INBLOCK  CODE           ?PR?USB_PROCESS_GET_DESCRIPTOR?USB
+000482H   00052BH   0000AAH   BYTE   INBLOCK  CODE           ?PR?USB_IRQ?USB
+00052CH   00059CH   000071H   BYTE   INBLOCK  CODE           ?PR?BOOTLOADER?BOOTLOADER
+00059DH   0005F3H   000057H   BYTE   INBLOCK  CODE           ?PR?USB_PROCESS_GET_STATUS?USB
+0005F4H   000648H   000055H   BYTE   INBLOCK  CODE           ?PR?PACKETIZER_ISR_EP0_IN?USB
+000649H   000692H   00004AH   BYTE   INBLOCK  CODE           ?PR?USB_IRQ_HANDLER?BOOTLOADER
+000693H   0006DBH   000049H   BYTE   INBLOCK  CODE           ?PR?UART0_ISR?HAL_UART
+0006DCH   000705H   00002AH   BYTE   INBLOCK  CODE           ?PR?_DIVOUT?PRINTF
+000706H   000729H   000024H   BYTE   INBLOCK  CODE           ?PR?PRINTF
+00072AH   00074BH   000022H   BYTE   INBLOCK  CODE           ?PR?_OUTDGT?PRINTF
+00074CH   00076CH   000021H   BYTE   INBLOCK  CODE           ?PR?_DELAY_MS?USB
+00076DH   00078DH   000021H   BYTE   INBLOCK  CODE           ?PR?_DELAY_MS?BOOTLOADER
+00078EH   0007AAH   00001DH   BYTE   INBLOCK  CODE           ?PR?INT_EP1OUT_HANDLER?USB
+0007ABH   0007C3H   000019H   BYTE   INBLOCK  CODE           ?PR?INT_EP1IN_HANDLER?USB
+0007C4H   0007D5H   000012H   BYTE   INBLOCK  CODE           ?PR?INT_EP2IN_HANDLER?USB
+0007D6H   0007E7H   000012H   BYTE   INBLOCK  CODE           ?PR?INT_EP3IN_HANDLER?USB
+0007E8H   0007F9H   000012H   BYTE   INBLOCK  CODE           ?PR?_OUT?PRINTF
+0007FAH   0007FCH   000003H   BYTE   INBLOCK  CODE           ?PR?_UART_SEND?UART_WOISR
+0007FDH   0007FFH   000003H   ---    ---      **GAP**
+000800H   000810H   000011H   BYTE   INBLOCK  CODE           ?PR?MAIN?MAIN
+000811H   0008D3H   0000C3H   BYTE   UNIT     CODE           ?C?LIB_CODE
+0008D4H   00095FH   00008CH   BYTE   UNIT     CODE           ?C_C51STARTUP
+000960H   000992H   000033H   BYTE   UNIT     CODE           ?CO?BOOTLOADER
+000993H   0009A9H   000017H   BYTE   UNIT     CODE           ?CO?MAIN
+0009AAH   0009ADH   000004H   BYTE   UNIT     CODE           ?C_INITSEG
+0009AEH   000B4FH   0001A2H   BYTE   UNIT     CONST          ?CO?USB_DESC_BOOTLOADER
+
+* * * * * * * * * * *  X D A T A   M E M O R Y  * * * * * * * * * * * * *
+000023H   000023H   000001H   BYTE   OFFS..   XDATA          ?XD?BOOTLOADER?0
+000024H   00C43FH   00C41CH   ---    ---      **GAP**
+00C440H   00C47FH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?30
+00C480H   00C4BFH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?25
+00C4C0H   00C4FFH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?27
+00C500H   00C53FH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?23
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 3
+
+
+00C540H   00C57FH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?26
+00C580H   00C5BFH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?21
+00C5C0H   00C5FFH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?24
+00C600H   00C63FH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?20
+00C640H   00C67FH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?22
+00C680H   00C6BFH   000040H   BYTE   OFFS..   XDATA          ?XD?USB?18
+00C6C0H   00C6DFH   000020H   BYTE   OFFS..   XDATA          ?XD?USB?19
+00C6E0H   00C6FFH   000020H   ---    ---      **GAP**
+00C700H   00C71FH   000020H   BYTE   OFFS..   XDATA          ?XD?USB?17
+00C720H   00C780H   000061H   ---    ---      **GAP**
+00C781H   00C781H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?6
+00C782H   00C782H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?8
+00C783H   00C783H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?10
+00C784H   00C784H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?11
+00C785H   00C785H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?12
+00C786H   00C787H   000002H   ---    ---      **GAP**
+00C788H   00C788H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?16
+00C789H   00C789H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?3
+00C78AH   00C78AH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?4
+00C78BH   00C78BH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?5
+00C78CH   00C78CH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?7
+00C78DH   00C78DH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?9
+00C78EH   00C7A7H   00001AH   ---    ---      **GAP**
+00C7A8H   00C7A8H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?15
+00C7A9H   00C7A9H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?0
+00C7AAH   00C7AAH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?1
+00C7ABH   00C7ABH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?13
+00C7ACH   00C7ACH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?57
+00C7ADH   00C7ADH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?58
+00C7AEH   00C7AEH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?2
+00C7AFH   00C7B3H   000005H   ---    ---      **GAP**
+00C7B4H   00C7B4H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?43
+00C7B5H   00C7B5H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?29
+00C7B6H   00C7B6H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?44
+00C7B7H   00C7B7H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?31
+00C7B8H   00C7B8H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?45
+00C7B9H   00C7B9H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?33
+00C7BAH   00C7BAH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?47
+00C7BBH   00C7BBH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?36
+00C7BCH   00C7BCH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?49
+00C7BDH   00C7BDH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?38
+00C7BEH   00C7BEH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?51
+00C7BFH   00C7BFH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?40
+00C7C0H   00C7C4H   000005H   ---    ---      **GAP**
+00C7C5H   00C7C5H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?34
+00C7C6H   00C7C6H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?46
+00C7C7H   00C7C7H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?35
+00C7C8H   00C7C8H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?48
+00C7C9H   00C7C9H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?37
+00C7CAH   00C7CAH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?50
+00C7CBH   00C7CBH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?39
+00C7CCH   00C7CCH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?52
+00C7CDH   00C7CDH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?41
+00C7CEH   00C7CEH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?53
+00C7CFH   00C7CFH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?42
+00C7D0H   00C7D5H   000006H   ---    ---      **GAP**
+00C7D6H   00C7D6H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?14
+00C7D7H   00C7DCH   000006H   ---    ---      **GAP**
+00C7DDH   00C7DDH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?59
+00C7DEH   00C7DEH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?28
+00C7DFH   00C7DFH   000001H   BYTE   OFFS..   XDATA          ?XD?USB?32
+00C7E0H   00C7E0H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?54
+00C7E1H   00C7E1H   000001H   BYTE   OFFS..   XDATA          ?XD?USB?55
+00C7E2H   00C7E7H   000006H   ---    ---      **GAP**
+00C7E8H   00C7EFH   000008H   BYTE   OFFS..   XDATA          ?XD?USB?56
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 4
+
+
+
+* * * * * * * * *   R E M O V E D     S E G M E N T S   * * * * * * * *
+   *DEL*:           000029H   BYTE   INBLOCK  CODE           ?PR?_PUTSTRING?MAIN
+   *DEL*:           000003H   BYTE   UNIT     DATA           ?DT?_PUTSTRING?MAIN
+   *DEL*:           000003H   BYTE   INBLOCK  CODE           ?PR?UART_GET?UART_WOISR
+   *DEL*:           00004FH   BYTE   INBLOCK  CODE           ?PR?_HAL_UART_INIT?HAL_UART
+   *DEL*:           000024H   BYTE   INBLOCK  CODE           ?PR?_HAL_UART_PUTCHAR?HAL_UART
+   *DEL*:           000003H   BYTE   INBLOCK  CODE           ?PR?HAL_UART_CHARS_AVAILABLE?HAL_UART
+   *DEL*:           000019H   BYTE   INBLOCK  CODE           ?PR?HAL_UART_GETCHAR?HAL_UART
+
+
+
+OVERLAY MAP OF MODULE:   .\build\boot24lu1p-f32 (MAIN)
+
+
+FUNCTION/MODULE                               BIT_GROUP   DATA_GROUP 
+--> CALLED FUNCTION/MODULE                   START  STOP  START  STOP
+=====================================================================
+USB_IRQ_HANDLER/BOOTLOADER                   ----- -----  ----- -----
+  +--> USB_IRQ/USB
+
+USB_IRQ/USB                                  ----- -----  0008H 0009H
+  +--> ISR_SUDAV/USB
+  +--> PACKETIZER_ISR_EP0_IN/USB
+  +--> INT_EP1IN_HANDLER/USB
+  +--> INT_EP1OUT_HANDLER/USB
+
+ISR_SUDAV/USB                                ----- -----  ----- -----
+  +--> USB_PROCESS_GET_DESCRIPTOR/USB
+  +--> USB_PROCESS_GET_STATUS/USB
+  +--> USB
+  +--> ?CO?USB_DESC_BOOTLOADER
+  +--> PACKETIZER_ISR_EP0_IN/USB
+
+USB_PROCESS_GET_DESCRIPTOR/USB               ----- -----  ----- -----
+  +--> ?CO?USB_DESC_BOOTLOADER
+  +--> USB
+  +--> PACKETIZER_ISR_EP0_IN/USB
+
+?CO?USB_DESC_BOOTLOADER                      ----- -----  ----- -----
+
+USB                                          ----- -----  ----- -----
+
+PACKETIZER_ISR_EP0_IN/USB                    ----- -----  ----- -----
+  +--> USB
+
+USB_PROCESS_GET_STATUS/USB                   ----- -----  ----- -----
+  +--> USB
+
+INT_EP1IN_HANDLER/USB                        ----- -----  ----- -----
+
+INT_EP1OUT_HANDLER/USB                       ----- -----  000AH 000AH
+
+*** NEW ROOT *******************************
+
+?C_C51STARTUP                                ----- -----  ----- -----
+  +--> MAIN/MAIN
+  +--> ?C_INITSEG
+
+MAIN/MAIN                                    ----- -----  ----- -----
+  +--> USART_INIT/UART_WOISR
+  +--> ?CO?MAIN
+  +--> _TFP_PRINTF/PRINTF
+  +--> BOOTLOADER/BOOTLOADER
+
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 5
+
+
+USART_INIT/UART_WOISR                        ----- -----  ----- -----
+
+?CO?MAIN                                     ----- -----  ----- -----
+
+_TFP_PRINTF/PRINTF                           ----- -----  000CH 0026H
+  +--> PRINTF
+  +--> _PUTCHAR/MAIN
+  +--> _OUT/PRINTF
+  +--> _DIVOUT/PRINTF
+  +--> _OUTDGT/PRINTF
+
+PRINTF                                       ----- -----  ----- -----
+
+_PUTCHAR/MAIN                                ----- -----  ----- -----
+  +--> _UART_SEND_WAIT_FOR_COMPLETE/UART_WOISR
+
+_UART_SEND_WAIT_FOR_COMPLETE/UART_WOISR      ----- -----  ----- -----
+  +--> _UART_SEND/UART_WOISR
+
+_UART_SEND/UART_WOISR                        ----- -----  ----- -----
+
+_OUT/PRINTF                                  ----- -----  ----- -----
+
+_DIVOUT/PRINTF                               ----- -----  ----- -----
+  +--> _OUTDGT/PRINTF
+
+_OUTDGT/PRINTF                               ----- -----  ----- -----
+  +--> _OUT/PRINTF
+
+BOOTLOADER/BOOTLOADER                        ----- -----  000BH 000BH
+  +--> USB_INIT/USB
+  +--> ?CO?BOOTLOADER
+  +--> _TFP_PRINTF/PRINTF
+  +--> _DELAY_MS/BOOTLOADER
+  +--> INT_EP1IN_HANDLER/USB
+  +--> INT_EP2IN_HANDLER/USB
+  +--> INT_EP3IN_HANDLER/USB
+
+USB_INIT/USB                                 ----- -----  ----- -----
+  +--> _DELAY_MS/USB
+  +--> USB
+
+_DELAY_MS/USB                                ----- -----  ----- -----
+
+?CO?BOOTLOADER                               ----- -----  ----- -----
+
+_DELAY_MS/BOOTLOADER                         ----- -----  ----- -----
+
+INT_EP2IN_HANDLER/USB                        ----- -----  ----- -----
+
+INT_EP3IN_HANDLER/USB                        ----- -----  ----- -----
+
+?C_INITSEG                                   ----- -----  ----- -----
+
+*** NEW ROOT *******************************
+
+UART0_ISR/HAL_UART                           ----- -----  ----- -----
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\build\boot24lu1p-f32 (MAIN)
+
+
+      VALUE       CLASS    TYPE      PUBLIC SYMBOL NAME
+      =================================================
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 6
+
+
+      0000000CH   DATA     BYTE      ?_tfp_printf?BYTE
+      01000887H   CODE     ---       ?C?CCASE
+      01000811H   CODE     ---       ?C?CLDPTR
+      00000000H   NUMBER   ---       ?C?CODESEG
+      0100082AH   CODE     ---       ?C?CSTPTR
+      0100083CH   CODE     ---       ?C?ILDPTR
+      010008C8H   CODE     ---       ?C?PLDCODE
+      010008ADH   CODE     ---       ?C?PLDIDATA
+      010008BFH   CODE     ---       ?C?PLDPDATA
+      01000867H   CODE     ---       ?C?PLDPTR
+      010008B6H   CODE     ---       ?C?PLDXDATA
+      00000000H   NUMBER   ---       ?C?XDATASEG
+      0100091BH   CODE     ---       ?C_START
+      01000000H   CODE     NEAR LAB  ?C_STARTUP
+*DEL*:00000000H   CODE     ---       _hal_uart_init
+*DEL*:00000000H   CODE     ---       _hal_uart_putchar
+      01000060H   CODE     ---       _putchar
+*DEL*:00000000H   CODE     ---       _putstring
+      01000066H   CODE     ---       _tfp_printf
+      010007FAH   CODE     ---       _uart_send
+      01000057H   CODE     ---       _uart_send_wait_for_complete
+      0200C789H   XDATA    BYTE      bin1addr
+      0200C78AH   XDATA    BYTE      bin2addr
+      0200C78BH   XDATA    BYTE      bin3addr
+      0200C78CH   XDATA    BYTE      bin4addr
+      0200C78DH   XDATA    BYTE      bin5addr
+      0200C788H   XDATA    BYTE      binstaddr
+      0100052CH   CODE     ---       bootloader
+      0200C781H   XDATA    BYTE      bout1addr
+      0200C782H   XDATA    BYTE      bout2addr
+      0200C783H   XDATA    BYTE      bout3addr
+      0200C784H   XDATA    BYTE      bout4addr
+      0200C785H   XDATA    BYTE      bout5addr
+      0200C7B4H   XDATA    BYTE      ep0cs
+      010009C0H   CONST    ---       g_usb_conf_desc
+      010009AEH   CONST    ---       g_usb_dev_desc
+      01000A58H   CONST    ---       g_usb_extended_compat_id
+      01000A80H   CONST    ---       g_usb_extended_proper_os
+      010009EEH   CONST    ---       g_usb_string_desc_1
+      01000A18H   CONST    ---       g_usb_string_desc_2
+      01000A46H   CONST    ---       g_usb_string_desc_ee
+*DEL*:00000000H   CODE     ---       hal_uart_chars_available
+*DEL*:00000000H   CODE     ---       hal_uart_getchar
+      0200C7B5H   XDATA    BYTE      in0bc
+      0200C700H   XDATA    ---       in0buf
+      0200C7B7H   XDATA    BYTE      in1bc
+      0200C680H   XDATA    ---       in1buf
+      0200C7B6H   XDATA    BYTE      in1cs
+      0200C7B9H   XDATA    BYTE      in2bc
+      0200C600H   XDATA    ---       in2buf
+      0200C7B8H   XDATA    BYTE      in2cs
+      0200C7BBH   XDATA    BYTE      in3bc
+      0200C580H   XDATA    ---       in3buf
+      0200C7BAH   XDATA    BYTE      in3cs
+      0200C7BDH   XDATA    BYTE      in4bc
+      0200C500H   XDATA    ---       in4buf
+      0200C7BCH   XDATA    BYTE      in4cs
+      0200C7BFH   XDATA    BYTE      in5bc
+      0200C480H   XDATA    ---       in5buf
+      0200C7BEH   XDATA    BYTE      in5cs
+      0200C7ACH   XDATA    BYTE      in_ien
+      0200C7A9H   XDATA    BYTE      in_irq
+      0200C7DEH   XDATA    BYTE      inbulkval
+      0200C7E0H   XDATA    BYTE      inisoval
+      010007ABH   CODE     ---       int_ep1in_handler
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 7
+
+
+      0100078EH   CODE     ---       int_ep1out_handler
+      0000003CH   DATA     BYTE      int_ep2in_flag
+      010007C4H   CODE     ---       int_ep2in_handler
+      010007D6H   CODE     ---       int_ep3in_handler
+      0200C7A8H   XDATA    BYTE      ivec
+      01000800H   CODE     ---       main
+      0200C7C5H   XDATA    BYTE      out0bc
+      0200C6C0H   XDATA    ---       out0buf
+      0200C7C7H   XDATA    BYTE      out1bc
+      0200C640H   XDATA    ---       out1buf
+      0200C7C6H   XDATA    BYTE      out1cs
+      0200C7C9H   XDATA    BYTE      out2bc
+      0200C5C0H   XDATA    ---       out2buf
+      0200C7C8H   XDATA    BYTE      out2cs
+      0200C7CBH   XDATA    BYTE      out3bc
+      0200C540H   XDATA    ---       out3buf
+      0200C7CAH   XDATA    BYTE      out3cs
+      0200C7CDH   XDATA    BYTE      out4bc
+      0200C4C0H   XDATA    ---       out4buf
+      0200C7CCH   XDATA    BYTE      out4cs
+      0200C7CFH   XDATA    BYTE      out5bc
+      0200C440H   XDATA    ---       out5buf
+      0200C7CEH   XDATA    BYTE      out5cs
+      0200C7ADH   XDATA    BYTE      out_ien
+      0200C7AAH   XDATA    BYTE      out_irq
+      0200C7DFH   XDATA    BYTE      outbulkval
+      0200C7E1H   XDATA    BYTE      outisoval
+      0000003EH   DATA     BYTE      packet_received
+      0200C7E8H   XDATA    ---       setupbuf
+      01000B4CH   CONST    ---       string_zero
+      01000693H   CODE     ---       uart0_isr
+*DEL*:00000000H   CODE     ---       uart_get
+      01000003H   CODE     ---       usart_init
+      01000306H   CODE     ---       usb_init
+      01000482H   CODE     ---       usb_irq
+      01000649H   CODE     ---       usb_irq_handler
+      0200C7D6H   XDATA    BYTE      usbcs
+      0200C7AEH   XDATA    BYTE      usbien
+      0200C7ABH   XDATA    BYTE      usbirq
+      0200C7DDH   XDATA    BYTE      usbpair
+
+
+
+SYMBOL TABLE OF MODULE:  .\build\boot24lu1p-f32 (MAIN)
+
+      VALUE       REP       CLASS    TYPE      SYMBOL NAME
+      ====================================================
+      ---         MODULE    ---      ---       MAIN
+      01000800H   PUBLIC    CODE     ---       main
+      01000060H   PUBLIC    CODE     ---       _putchar
+
+      01000060H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000800H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       USB
+      0200C7DDH   PUBLIC    XDATA    BYTE      usbpair
+      0200C7ADH   PUBLIC    XDATA    BYTE      out_ien
+      0200C7ACH   PUBLIC    XDATA    BYTE      in_ien
+      0200C7E8H   PUBLIC    XDATA    ---       setupbuf
+      0200C7E1H   PUBLIC    XDATA    BYTE      outisoval
+      0200C7E0H   PUBLIC    XDATA    BYTE      inisoval
+      0200C7CEH   PUBLIC    XDATA    BYTE      out5cs
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 8
+
+
+      0200C7CCH   PUBLIC    XDATA    BYTE      out4cs
+      0200C7BEH   PUBLIC    XDATA    BYTE      in5cs
+      0200C7CAH   PUBLIC    XDATA    BYTE      out3cs
+      0200C7BCH   PUBLIC    XDATA    BYTE      in4cs
+      0200C7C8H   PUBLIC    XDATA    BYTE      out2cs
+      0200C7BAH   PUBLIC    XDATA    BYTE      in3cs
+      0200C7C6H   PUBLIC    XDATA    BYTE      out1cs
+      0200C7B8H   PUBLIC    XDATA    BYTE      in2cs
+      0200C7B6H   PUBLIC    XDATA    BYTE      in1cs
+      0200C7B4H   PUBLIC    XDATA    BYTE      ep0cs
+      0200C7CFH   PUBLIC    XDATA    BYTE      out5bc
+      0200C7CDH   PUBLIC    XDATA    BYTE      out4bc
+      0200C7BFH   PUBLIC    XDATA    BYTE      in5bc
+      0200C7CBH   PUBLIC    XDATA    BYTE      out3bc
+      0200C7BDH   PUBLIC    XDATA    BYTE      in4bc
+      0200C7C9H   PUBLIC    XDATA    BYTE      out2bc
+      0200C7BBH   PUBLIC    XDATA    BYTE      in3bc
+      0200C7C7H   PUBLIC    XDATA    BYTE      out1bc
+      0200C7C5H   PUBLIC    XDATA    BYTE      out0bc
+      0200C7B9H   PUBLIC    XDATA    BYTE      in2bc
+      0200C7DFH   PUBLIC    XDATA    BYTE      outbulkval
+      0200C7B7H   PUBLIC    XDATA    BYTE      in1bc
+      0200C440H   PUBLIC    XDATA    ---       out5buf
+      0200C7B5H   PUBLIC    XDATA    BYTE      in0bc
+      0200C7DEH   PUBLIC    XDATA    BYTE      inbulkval
+      0200C4C0H   PUBLIC    XDATA    ---       out4buf
+      0200C540H   PUBLIC    XDATA    ---       out3buf
+      0200C480H   PUBLIC    XDATA    ---       in5buf
+      0200C5C0H   PUBLIC    XDATA    ---       out2buf
+      0200C500H   PUBLIC    XDATA    ---       in4buf
+      0200C640H   PUBLIC    XDATA    ---       out1buf
+      0200C580H   PUBLIC    XDATA    ---       in3buf
+      0200C600H   PUBLIC    XDATA    ---       in2buf
+      0200C6C0H   PUBLIC    XDATA    ---       out0buf
+      0200C680H   PUBLIC    XDATA    ---       in1buf
+      0200C700H   PUBLIC    XDATA    ---       in0buf
+      0200C788H   PUBLIC    XDATA    BYTE      binstaddr
+      0200C7A8H   PUBLIC    XDATA    BYTE      ivec
+      0000003EH   PUBLIC    DATA     BYTE      packet_received
+      0200C7D6H   PUBLIC    XDATA    BYTE      usbcs
+      0200C7ABH   PUBLIC    XDATA    BYTE      usbirq
+      0200C785H   PUBLIC    XDATA    BYTE      bout5addr
+      0200C784H   PUBLIC    XDATA    BYTE      bout4addr
+      0200C783H   PUBLIC    XDATA    BYTE      bout3addr
+      0200C78DH   PUBLIC    XDATA    BYTE      bin5addr
+      0200C782H   PUBLIC    XDATA    BYTE      bout2addr
+      0200C78CH   PUBLIC    XDATA    BYTE      bin4addr
+      0200C781H   PUBLIC    XDATA    BYTE      bout1addr
+      0200C78BH   PUBLIC    XDATA    BYTE      bin3addr
+      0200C78AH   PUBLIC    XDATA    BYTE      bin2addr
+      0000003CH   PUBLIC    DATA     BYTE      int_ep2in_flag
+      0200C789H   PUBLIC    XDATA    BYTE      bin1addr
+      0200C7AEH   PUBLIC    XDATA    BYTE      usbien
+      0200C7AAH   PUBLIC    XDATA    BYTE      out_irq
+      0200C7A9H   PUBLIC    XDATA    BYTE      in_irq
+      01000482H   PUBLIC    CODE     ---       usb_irq
+      01000306H   PUBLIC    CODE     ---       usb_init
+      0100078EH   PUBLIC    CODE     ---       int_ep1out_handler
+      010007D6H   PUBLIC    CODE     ---       int_ep3in_handler
+      010007C4H   PUBLIC    CODE     ---       int_ep2in_handler
+      010007ABH   PUBLIC    CODE     ---       int_ep1in_handler
+
+      01000026H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 9
+
+
+      0100074CH   BLOCK     CODE     ---       LVL=0
+      0100074CH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000004H   SYMBOL    DATA     VOID      i
+      00000002H   SYMBOL    DATA     VOID      j
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010007ABH   BLOCK     CODE     ---       LVL=0
+      010007ABH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      i
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010007C4H   BLOCK     CODE     ---       LVL=0
+      010007C4H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      i
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010007D6H   BLOCK     CODE     ---       LVL=0
+      010007D6H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      i
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100078EH   BLOCK     CODE     ---       LVL=0
+      0100078EH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      i
+      0000000AH   SYMBOL    DATA     VOID      tmp_val
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000306H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010005F4H   BLOCK     CODE     ---       LVL=0
+      010005F4H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000004H   SYMBOL    DATA     VOID      data_ptr
+      00000007H   SYMBOL    DATA     VOID      size
+      00000006H   SYMBOL    DATA     VOID      i
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100059DH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010003C4H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000229H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000482H   BLOCK     CODE     ---       LVL=0
+      01000482H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000008H   SYMBOL    DATA     VOID      i
+      00000009H   SYMBOL    DATA     VOID      temp_irq
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       BOOTLOADER
+      0100052CH   PUBLIC    CODE     ---       bootloader
+      01000649H   PUBLIC    CODE     ---       usb_irq_handler
+
+      0100076DH   BLOCK     CODE     ---       LVL=0
+      0100076DH   BLOCK     CODE     NEAR LAB  LVL=1
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 10
+
+
+      00000004H   SYMBOL    DATA     VOID      i
+      00000002H   SYMBOL    DATA     VOID      j
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000649H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100052CH   BLOCK     CODE     ---       LVL=0
+      0100052CH   BLOCK     CODE     NEAR LAB  LVL=1
+      0000000BH   SYMBOL    DATA     VOID      i
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       USB_DESC_BOOTLOADER
+      01000B4CH   PUBLIC    CONST    ---       string_zero
+      01000A80H   PUBLIC    CONST    ---       g_usb_extended_proper_os
+      01000A58H   PUBLIC    CONST    ---       g_usb_extended_compat_id
+      01000A46H   PUBLIC    CONST    ---       g_usb_string_desc_ee
+      01000A18H   PUBLIC    CONST    ---       g_usb_string_desc_2
+      010009EEH   PUBLIC    CONST    ---       g_usb_string_desc_1
+      010009C0H   PUBLIC    CONST    ---       g_usb_conf_desc
+      010009AEH   PUBLIC    CONST    ---       g_usb_dev_desc
+
+      ---         MODULE    ---      ---       ?C_STARTUP
+      01000000H   PUBLIC    CODE     NEAR LAB  ?C_STARTUP
+
+      ---         MODULE    ---      ---       UART_WOISR
+      01000057H   PUBLIC    CODE     ---       _uart_send_wait_for_complete
+      010007FAH   PUBLIC    CODE     ---       _uart_send
+      01000003H   PUBLIC    CODE     ---       usart_init
+
+      01000003H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010007FAH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000057H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       HAL_UART
+      01000693H   PUBLIC    CODE     ---       uart0_isr
+
+      01000693H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+      00000004H   SYMBOL    DATA     VOID      temp
+      00000007H   SYMBOL    DATA     VOID      ch
+
+      ---         MODULE    ---      ---       PRINTF
+      0000000CH   PUBLIC    DATA     BYTE      ?_tfp_printf?BYTE
+      01000066H   PUBLIC    CODE     ---       _tfp_printf
+
+      01000706H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010007E8H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100072AH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010006DCH   BLOCK     CODE     ---       LVL=0
+      010006E0H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      dgt
+LX51 LINKER/LOCATER V4.66.30.0                                                        08/14/2015  11:46:57  PAGE 11
+
+
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000066H   BLOCK     CODE     ---       LVL=0
+      0100006CH   BLOCK     CODE     NEAR LAB  LVL=1
+      0000000FH   SYMBOL    DATA     VOID      ellipsis_15
+      0000001EH   SYMBOL    DATA     VOID      va
+      00000021H   SYMBOL    DATA     VOID      ch
+      00000022H   SYMBOL    DATA     VOID      p
+      01000299H   SYMBOL    CODE     VOID      abort
+      0100008EH   BLOCK     CODE     NEAR LAB  LVL=2
+      00000025H   SYMBOL    DATA     VOID      lz
+      00000026H   SYMBOL    DATA     VOID      w
+      ---         BLOCKEND  ---      ---       LVL=2
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       ?C_INIT
+      0100091BH   PUBLIC    CODE     ---       ?C_START
+
+      ---         MODULE    ---      ---       ?C?CLDPTR
+      01000811H   PUBLIC    CODE     ---       ?C?CLDPTR
+
+      ---         MODULE    ---      ---       ?C?CSTPTR
+      0100082AH   PUBLIC    CODE     ---       ?C?CSTPTR
+
+      ---         MODULE    ---      ---       ?C?ILDPTR
+      0100083CH   PUBLIC    CODE     ---       ?C?ILDPTR
+
+      ---         MODULE    ---      ---       ?C?PLDPTR
+      01000867H   PUBLIC    CODE     ---       ?C?PLDPTR
+
+      ---         MODULE    ---      ---       ?C?CCASE
+      01000887H   PUBLIC    CODE     ---       ?C?CCASE
+
+      ---         MODULE    ---      ---       ?C?PLDIDATA
+      010008ADH   PUBLIC    CODE     ---       ?C?PLDIDATA
+
+      ---         MODULE    ---      ---       ?C?PLDXDATA
+      010008B6H   PUBLIC    CODE     ---       ?C?PLDXDATA
+
+      ---         MODULE    ---      ---       ?C?PLDPDATA
+      010008BFH   PUBLIC    CODE     ---       ?C?PLDPDATA
+
+      ---         MODULE    ---      ---       ?C?PLDCODE
+      010008C8H   PUBLIC    CODE     ---       ?C?PLDCODE
+
+
+
+*** WARNING L25: DATA TYPES DIFFERENT
+    SYMBOL:  _putchar
+    MODULE:  .\build\printf.obj (PRINTF)
+   DEFINED:  .\build\main.obj (MAIN)
+
+Program Size: data=160.0 xdata=760 const=418 code=2475
+LX51 RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,280 @@
+C51 COMPILER V9.53.0.0   USB_DESC_BOOTLOADER                                               08/14/2015 11:01:30 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE USB_DESC_BOOTLOADER
+OBJECT MODULE PLACED IN .\build\usb_desc_bootloader.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\usb_desc_bootloader.c OMF2 ROM(COMPACT) OPTIMIZE(9,SPEED) BROWSE MODC
+                    -2 INCDIR(..\..\..\hal;..\..\..\hal\nrf24lu1p;..\..\..\compiler\c51;..\..\..\compiler\common;..\TPF) PRINT(.\list\usb_des
+                    -c_bootloader.lst) TABS(2) PREPRINT(.\list\usb_desc_bootloader.i) OBJECT(.\build\usb_desc_bootloader.obj)
+
+line level    source
+
+   1          /* Copyright (c) 2009 Nordic Semiconductor. All Rights Reserved.
+   2           *
+   3           * The information contained herein is confidential property of Nordic 
+   4           * Semiconductor ASA.Terms and conditions of usage are described in detail 
+   5           * in NORDIC SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT. 
+   6           *
+   7           * Licensees are granted free, non-transferable use of the information. NO
+   8           * WARRENTY of ANY KIND is provided. This heading must NOT be removed from
+   9           * the file.
+  10           *              
+  11           * $LastChangedRevision: 133 $
+  12           */
+  13          
+  14          /** @file
+  15           * USB descriptor for Bootloader
+  16           *
+  17           */
+  18          #include "config.h"
+  19          
+  20          /** Swaps the upper byte with the lower byte in a 16 bit variable */
+  21          #define SWAP(x) ((((x)&0xFF)<<8)|(((x)>>8)&0xFF))
+  22          
+  23          #include "usb_desc_bootloader.h"
+  24          
+  25          
+  26          code usb_dev_desc_t g_usb_dev_desc = {
+  27            sizeof(usb_dev_desc_t), 
+  28            USB_DESC_DEVICE, 
+  29            SWAP(0x0200),       // bcdUSB
+  30            0xff,               // bDeviceClass
+  31            0xff,               // bDeviceSubclass
+  32            0xff,               // bDeviceProtocol
+  33            MAX_PACKET_SIZE_EP0,// bMaxPAcketSize0
+  34            SWAP(0x193A),       // idVendor - 6421 (0x1915) : Nordic Semiconductor ASA
+  35            SWAP(0x0101),       // idProduct
+  36            SWAP(0x0001),       // bcdDevice - Device Release Number (BCD)
+  37            0x01,               // iManufacturer
+  38            0x02,               // iProduct
+  39            0x00,               // iSerialNumber
+  40            0x01                // bNumConfigurations
+  41          };
+  42          
+  43          code usb_conf_desc_bootloader_t g_usb_conf_desc = 
+  44          {
+  45              {
+  46                  sizeof(usb_conf_desc_t),
+  47                  USB_DESC_CONFIGURATION,
+  48                  SWAP(sizeof(usb_conf_desc_bootloader_t)),
+  49                  1,            // bNumInterfaces
+  50                  1,            // bConfigurationValue
+  51                  2,            // iConfiguration
+  52                  0xE0,         // bmAttributes - D6: self-powered, bus powered: 0xA0
+  53                  50,           // bMaxPower
+C51 COMPILER V9.53.0.0   USB_DESC_BOOTLOADER                                               08/14/2015 11:01:30 PAGE 2   
+
+  54              },
+  55              /* Interface Descriptor 0 */ 
+  56              {
+  57                  sizeof(usb_if_desc_t),
+  58                  USB_DESC_INTERFACE,
+  59                  0,            // bInterfaceNumber
+  60                  0,            // bAlternateSetting
+  61                  4,            // bNumEndpoints
+  62                  0xff,         // bInterfaceClass
+  63                  0x00,         // bInterfaceSubClass  
+  64                  0xff,         // bInterfaceProtocol 
+  65                  0x00,         // iInterface
+  66              },
+  67               /* Endpoint Descriptor EP1IN */
+  68               {
+  69                  sizeof(usb_ep_desc_t),
+  70                  USB_DESC_ENDPOINT,
+  71                  0x81,                   // bEndpointAddress
+  72                  USB_ENDPOINT_TYPE_BULK, // bmAttributes
+  73                  SWAP(USB_EP1_SIZE),     // wMaxPacketSize
+  74                  0x06                    // bInterval
+  75               },
+  76               /* Endpoint Descriptor EP2IN */
+  77               
+  78               {
+  79                  sizeof(usb_ep_desc_t),
+  80                  USB_DESC_ENDPOINT,
+  81                  0x82,                   // bEndpointAddress
+  82                  USB_ENDPOINT_TYPE_BULK, // bmAttributes
+  83                  SWAP(USB_EP1_SIZE),     // wMaxPacketSize
+  84                  0x06                    // bInterval
+  85               },
+  86                   
+  87               
+  88               /* Endpoint Descriptor EP1OUT */
+  89               {
+  90                  sizeof(usb_ep_desc_t),
+  91                  USB_DESC_ENDPOINT,
+  92                  0x01,                   // bEndpointAddress
+  93                  USB_ENDPOINT_TYPE_BULK, // bmAttributes
+  94                  SWAP(USB_EP1_SIZE),     // wMaxPacketSize
+  95                  0x06                    // bInterval
+  96              },
+  97              /* Endpoint Descriptor EP2OUT */
+  98              
+  99              {
+ 100                  sizeof(usb_ep_desc_t),
+ 101                  USB_DESC_ENDPOINT,
+ 102                  0x02,                   // bEndpointAddress
+ 103                  USB_ENDPOINT_TYPE_BULK, // bmAttributes
+ 104                  SWAP(USB_EP1_SIZE),     // wMaxPacketSize
+ 105                  0x06                    // bInterval
+ 106              },
+ 107                  
+ 108          };
+ 109          
+ 110          #define USB_STRING_IDX_1_DESC "!ordic Semiconductor"
+ 111          
+ 112          code uint8_t g_usb_string_desc_1[] = 
+ 113          {
+ 114              sizeof(USB_STRING_IDX_1_DESC) * 2, 0x03,
+ 115              '!', 00,
+C51 COMPILER V9.53.0.0   USB_DESC_BOOTLOADER                                               08/14/2015 11:01:30 PAGE 3   
+
+ 116              'o', 00,
+ 117              'r', 00,
+ 118              'd', 00,
+ 119              'i', 00,
+ 120              'c', 00,
+ 121              ' ', 00,
+ 122              'S', 00,
+ 123              'e', 00,
+ 124              'm', 00,
+ 125              'i', 00,
+ 126              'c', 00,
+ 127              'o', 00,
+ 128              'n', 00,
+ 129              'd', 00,
+ 130              'u', 00,
+ 131              'c', 00,
+ 132              't', 00,
+ 133              'o', 00,
+ 134              'r', 00 
+ 135          };
+ 136          
+ 137          #define USB_STRING_IDX_2_DESC "nRF24LU1P-F32 BOOT LDR"
+ 138          
+ 139          code uint8_t g_usb_string_desc_2[] = 
+ 140          {
+ 141              sizeof(USB_STRING_IDX_2_DESC) * 2, 0x03,
+ 142              '!', 00,
+ 143              'R', 00,
+ 144              'F', 00,
+ 145              '2', 00,
+ 146              '4', 00,
+ 147              'L', 00,
+ 148              'U', 00,
+ 149              '1', 00,
+ 150              'P', 00,
+ 151              '-', 00,
+ 152              'F', 00,
+ 153              '3', 00,
+ 154              '2', 00,
+ 155              ' ', 00,
+ 156              'B', 00,
+ 157              'O', 00,
+ 158              'O', 00,
+ 159              'T', 00,
+ 160              ' ', 00,
+ 161              'L', 00,
+ 162              'D', 00,
+ 163              'R', 00
+ 164          };
+ 165          
+ 166          code uint8_t g_usb_string_desc_ee[] = 
+ 167          {
+ 168              0x12, 0x03,
+ 169              0x4D, 0x00,
+ 170              0x53, 0x00,
+ 171              0x46, 0x00,
+ 172              0x54, 0x00,
+ 173              0x31, 0x00,
+ 174              0x30, 0x00,
+ 175              0x30, 0x00,
+ 176              MS_VENDORCODE, 0x00
+ 177          };
+C51 COMPILER V9.53.0.0   USB_DESC_BOOTLOADER                                               08/14/2015 11:01:30 PAGE 4   
+
+ 178          
+ 179          
+ 180          code uint8_t g_usb_extended_compat_id[] =
+ 181          {
+ 182              0x28, 0x00, 0x00, 0x00, //dwLength
+ 183              0x00, 0x01,             //bcdVersion
+ 184              0x04, 0x00,             //wIndex
+ 185              0x01,                   //bCount
+ 186              0, 0, 0, 0, 0, 0, 0,    //RESERVED
+ 187              0,                      //bFirstInterfaceNumber
+ 188              0,                      //RESERVED
+ 189              0x57, 0x49, 0x4E, 0x55, //compatibleID 
+ 190              0x53, 0x42, 0x00, 0x00,
+ 191              0, 0, 0, 0, 0, 0, 0, 0, //subCompatibleID
+ 192              0, 0, 0, 0, 0, 0        //RESERVED
+ 193          };
+ 194          
+ 195          code uint8_t g_usb_extended_proper_os[] =
+ 196          {
+ 197            0xCC, 0x00, 0x00, 0x00, //dwLength
+ 198            0x00, 0x01,             //bcdVersion
+ 199            0x05, 0x00,             //wIndex
+ 200            0x02, 0x00,             //wCount
+ 201            /*Property #1*/
+ 202            0x84, 0x00, 0x00, 0x00, //dwSize
+ 203            0x01, 0x00, 0x00, 0x00, //dwPropertyDataType
+ 204            0x28, 0x00,             //wPropertyNameLength
+ 205            'D',0, 'e',0, 'v',0,    //bPropertyName The property name (DeviceInterfaceGUID)
+ 206            'i',0, 'c',0, 'e',0,
+ 207            'I',0, 'n',0, 't',0,
+ 208            'e',0, 'r',0, 'f',0,
+ 209            'a',0, 'c',0, 'e',0,
+ 210            'G',0, 'U',0, 'I',0,
+ 211            'D',0, 0, 0,  
+ 212            0x4E, 0x00, 0x00, 0x00, //dwPropertyDataLength
+ 213            '{',0, 'E',0, 'A',0,    //bPropertyData PDL Format-dependent Property data ({EA0BD5C3-50F3-4888-84B4-74E50E
+             -1649DB})
+ 214            '0',0, 'B',0, 'D',0,
+ 215            '5',0, 'C',0, '3',0,
+ 216            '-',0, '5',0, '0',0,
+ 217            'F',0, '3',0, '-',0,
+ 218            '4',0, '8',0, '8',0,
+ 219            '8',0, '-',0, '8',0,
+ 220            '4',0, 'B',0, '4',0,
+ 221            '-',0, '7',0, '4',0, 
+ 222            'E',0, '5',0, '0',0, 
+ 223            'E',0, '1',0, '6',0, 
+ 224            '4',0, '9',0, 'D',0, 
+ 225            'B',0, '}',0, 0, 0, 
+ 226            /*Property #2*/
+ 227            0x3E, 0x00, 0x00, 0x00, //dwSize
+ 228            0x01, 0x00, 0x00, 0x00, //dwPropertyDataType
+ 229            0x0C, 0x00,             //wPropertyNameLength
+ 230            'L',0, 'a',0, 'b',0,    //bPropertyName
+ 231            'e',0, 'l',0, 0, 0,
+ 232            0x24, 0x00, 0x00, 0x00, //dwPropertyDataLength
+ 233            'W',0, 'i',0, 'n',0,    //bPropertyData PDL Format-dependent Property data (WinUSBComm Device)
+ 234            'U',0, 'S',0, 'B',0,    
+ 235            'C',0, 'o',0, 'm',0, 
+ 236            'm',0, ' ',0, 'd',0, 
+ 237            'e',0, 'v',0, 'i',0, 
+ 238            'c',0, 'e',0, 0, 0
+C51 COMPILER V9.53.0.0   USB_DESC_BOOTLOADER                                               08/14/2015 11:01:30 PAGE 5   
+
+ 239          };
+ 240          
+ 241          // This is for setting language American English (String descriptor 0 is an array of supported languages):
+ 242          code uint8_t string_zero[] = {0x04, 0x03, 0x09, 0x04} ;
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =    418    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

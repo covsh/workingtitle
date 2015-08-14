@@ -1,0 +1,619 @@
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE USB
+OBJECT MODULE PLACED IN .\build\usb.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\usb.c OMF2 ROM(COMPACT) OPTIMIZE(9,SPEED) BROWSE MODC2 INCDIR(..\..\.
+                    -.\hal;..\..\..\hal\nrf24lu1p;..\..\..\compiler\c51;..\..\..\compiler\common;..\TPF) PRINT(.\list\usb.lst) TABS(2) PREPRI
+                    -NT(.\list\usb.i) OBJECT(.\build\usb.obj)
+
+line level    source
+
+   1          #include <Nordic\reg24lu1.h>
+   2          #include <intrins.h>
+   3          #include <stdbool.h>
+   4          
+   5          #include "config.h"
+   6          #include "usb.h"
+   7          #include "printf.h"
+   8          
+   9          void putstring(char *s);
+  10          
+  11          /** Leaves the minimum of the two arguments */
+  12          #define MIN(a, b) ((a) < (b) ? (a) : (b))
+  13          
+  14          // USB map:
+  15          xdata volatile uint8_t out1buf[USB_EP1_SIZE]        _at_ 0xC640;
+  16          xdata volatile uint8_t out2buf[USB_EP1_SIZE]        _at_ 0xC5C0;
+  17          xdata volatile uint8_t out3buf[USB_EP1_SIZE]        _at_ 0xC540;
+  18          xdata volatile uint8_t out4buf[USB_EP1_SIZE]        _at_ 0xC4C0;
+  19          xdata volatile uint8_t out5buf[USB_EP1_SIZE]        _at_ 0xC440;
+  20          
+  21          xdata volatile uint8_t in1buf[USB_EP1_SIZE]         _at_ 0xC680;
+  22          xdata volatile uint8_t in2buf[USB_EP1_SIZE]         _at_ 0xC600;
+  23          xdata volatile uint8_t in3buf[USB_EP1_SIZE]         _at_ 0xC580;
+  24          xdata volatile uint8_t in4buf[USB_EP1_SIZE]         _at_ 0xC500;
+  25          xdata volatile uint8_t in5buf[USB_EP1_SIZE]         _at_ 0xC480;
+  26          
+  27          xdata volatile uint8_t usbpair                      _at_ 0xC7DD; /*USB endpoint pairing register (usbpair)*/
+  28          
+  29          xdata volatile uint8_t out0buf[MAX_PACKET_SIZE_EP0] _at_ 0xC6C0;
+  30          xdata volatile uint8_t in0buf[MAX_PACKET_SIZE_EP0]  _at_ 0xC700;
+  31          xdata volatile uint8_t bout1addr                    _at_ 0xC781;
+  32          xdata volatile uint8_t bout2addr                    _at_ 0xC782;
+  33          xdata volatile uint8_t bout3addr                    _at_ 0xC783;
+  34          xdata volatile uint8_t bout4addr                    _at_ 0xC784;
+  35          xdata volatile uint8_t bout5addr                    _at_ 0xC785;
+  36          xdata volatile uint8_t binstaddr                    _at_ 0xC788;
+  37          xdata volatile uint8_t bin1addr                     _at_ 0xC789;
+  38          xdata volatile uint8_t bin2addr                     _at_ 0xC78A;
+  39          xdata volatile uint8_t bin3addr                     _at_ 0xC78B;
+  40          xdata volatile uint8_t bin4addr                     _at_ 0xC78C;
+  41          xdata volatile uint8_t bin5addr                     _at_ 0xC78D;
+  42          xdata volatile uint8_t ivec                         _at_ 0xC7A8;
+  43          xdata volatile uint8_t in_irq                       _at_ 0xC7A9;
+  44          xdata volatile uint8_t out_irq                      _at_ 0xC7AA;
+  45          xdata volatile uint8_t usbirq                       _at_ 0xC7AB;
+  46          xdata volatile uint8_t in_ien                       _at_ 0xC7AC;
+  47          xdata volatile uint8_t out_ien                      _at_ 0xC7AD;
+  48          xdata volatile uint8_t usbien                       _at_ 0xC7AE;
+  49          xdata volatile uint8_t ep0cs                        _at_ 0xC7B4;
+  50          xdata volatile uint8_t in0bc                        _at_ 0xC7B5;
+  51          xdata volatile uint8_t out0bc                       _at_ 0xC7C5;
+  52          
+  53          xdata volatile uint8_t in1cs                        _at_ 0xC7B6;
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 2   
+
+  54          xdata volatile uint8_t in2cs                        _at_ 0xC7B8;
+  55          xdata volatile uint8_t in3cs                        _at_ 0xC7BA;
+  56          xdata volatile uint8_t in4cs                        _at_ 0xC7BC;
+  57          xdata volatile uint8_t in5cs                        _at_ 0xC7BE;
+  58          
+  59          xdata volatile uint8_t in1bc                        _at_ 0xC7B7;
+  60          xdata volatile uint8_t in2bc                        _at_ 0xC7B9;
+  61          xdata volatile uint8_t in3bc                        _at_ 0xC7BB;
+  62          xdata volatile uint8_t in4bc                        _at_ 0xC7BD;
+  63          xdata volatile uint8_t in5bc                        _at_ 0xC7BF;
+  64          
+  65          xdata volatile uint8_t out1cs                       _at_ 0xC7C6;
+  66          xdata volatile uint8_t out2cs                       _at_ 0xC7C8;
+  67          xdata volatile uint8_t out3cs                       _at_ 0xC7CA;
+  68          xdata volatile uint8_t out4cs                       _at_ 0xC7CC;
+  69          xdata volatile uint8_t out5cs                       _at_ 0xC7CE;
+  70          
+  71          xdata volatile uint8_t out1bc                       _at_ 0xC7C7;
+  72          xdata volatile uint8_t out2bc                       _at_ 0xC7C9;
+  73          xdata volatile uint8_t out3bc                       _at_ 0xC7CB;
+  74          xdata volatile uint8_t out4bc                       _at_ 0xC7CD;
+  75          xdata volatile uint8_t out5bc                       _at_ 0xC7CF;
+  76          
+  77          xdata volatile uint8_t usbcs                        _at_ 0xC7D6;
+  78          xdata volatile uint8_t inbulkval                    _at_ 0xC7DE;
+  79          xdata volatile uint8_t outbulkval                   _at_ 0xC7DF;
+  80          xdata volatile uint8_t inisoval                     _at_ 0xC7E0;
+  81          xdata volatile uint8_t outisoval                    _at_ 0xC7E1;
+  82          xdata volatile uint8_t setupbuf[8]                  _at_ 0xC7E8;
+  83          
+  84          static uint8_t usb_bm_state;
+  85          static uint8_t usb_current_config;
+  86          static uint8_t usb_current_alt_interface;
+  87          static usb_state_t usb_state;
+  88          
+  89          static uint8_t code * packetizer_data_ptr;
+  90          static uint8_t packetizer_data_size;
+  91          static uint8_t packetizer_pkt_size;
+  92          static uint8_t bmRequestType;
+  93          
+  94          bool packet_received;
+  95          
+  96          volatile bool int_ep2in_flag = false;
+  97          
+  98          static void packetizer_isr_ep0_in();
+  99          static void usb_process_get_status();
+ 100          static void usb_process_get_descriptor();
+ 101          
+ 102          static void delay_ms(uint16_t ms)
+ 103          {
+ 104   1          uint16_t i, j;
+ 105   1          
+ 106   1          for(i = 0; i < ms; i++ )
+ 107   1          {
+ 108   2              for( j = 0; j < 1403; j++)
+ 109   2              {
+ 110   3                  _nop_();
+ 111   3              }
+ 112   2          }
+ 113   1      }
+ 114          
+ 115          void int_ep1in_handler(void)
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 3   
+
+ 116          {
+ 117   1          uint8_t i;
+ 118   1          for(i=0;i<64;i++){
+ 119   2            in1buf[i]=i;
+ 120   2          }
+ 121   1          in1bc = 64;
+ 122   1      }
+ 123          
+ 124          void int_ep2in_handler(void)
+ 125          {
+ 126   1          uint8_t i = 0;
+ 127   1          for(i=0;i<64;i++){
+ 128   2            in2buf[i]=0xAA;
+ 129   2          }
+ 130   1          in2bc = 64;
+ 131   1      }
+ 132          
+ 133          void int_ep3in_handler(void)
+ 134          {
+ 135   1          uint8_t i;
+ 136   1          
+ 137   1          for(i=0;i<64;i++){
+ 138   2            in3buf[i]=0xBB;
+ 139   2          }
+ 140   1          in2bc = 64;   
+ 141   1      }
+ 142          
+ 143          int_ep1out_handler(void)
+ 144          {
+ 145   1          uint8_t i,tmp_val;
+ 146   1          for(i=0;i<out1bc;i++)
+ 147   1            tmp_val = out1buf[i]; //dummy read
+ 148   1      }
+ 149          
+ 150          
+ 151          void usb_init(void)
+ 152          {
+ 153   1          // Setup state information
+ 154   1          usb_state = DEFAULT;
+ 155   1          usb_bm_state = 0;
+ 156   1      
+ 157   1          // Setconfig configuration information
+ 158   1          usb_current_config = 0;
+ 159   1          usb_current_alt_interface = 0;
+ 160   1          
+ 161   1          // Disconnect from USB-bus since we are in this routine from a power on and not a soft reset:
+ 162   1      
+ 163   1          usbcs |= 0x08;
+ 164   1          delay_ms(50);
+ 165   1          usbcs &= ~0x08;
+ 166   1      
+ 167   1          /*intterrupt enable uresie,suspie,sutokie,sudavie */
+ 168   1          usbien = 0x1d; 
+ 169   1          /*Endpoint 0 to 5 IN interrupt enables (in_ien)*/
+ 170   1          in_ien = 0x01;
+ 171   1          /*Endpoints 0 to 5 IN interrupt request register (in_irq)  - clear interrupt*/
+ 172   1          in_irq = 0x1f;
+ 173   1          /*Endpoint 0 to 5 OUT interrupt enables (out_ien)*/
+ 174   1          out_ien = 0x01;
+ 175   1          /*Endpoints 0 to 5 OUT interrupt request register (out_irq) - clear in interrupt*/
+ 176   1          out_irq = 0x1f;
+ 177   1      
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 4   
+
+ 178   1          // Setup the USB RAM with some OK default values:
+ 179   1          bout1addr = MAX_PACKET_SIZE_EP0/2;
+ 180   1          bout2addr = MAX_PACKET_SIZE_EP0/2 + USB_EP1_SIZE/2;
+ 181   1          bout3addr = MAX_PACKET_SIZE_EP0/2 + 2*USB_EP1_SIZE/2;
+ 182   1          bout4addr = MAX_PACKET_SIZE_EP0/2 + 3*USB_EP1_SIZE/2;
+ 183   1          bout5addr = MAX_PACKET_SIZE_EP0/2 + 4*USB_EP1_SIZE/2;
+ 184   1          binstaddr = 0xc0;
+ 185   1          bin1addr = MAX_PACKET_SIZE_EP0/2;
+ 186   1          bin2addr = MAX_PACKET_SIZE_EP0/2 + USB_EP1_SIZE/2;
+ 187   1          bin3addr = MAX_PACKET_SIZE_EP0/2 + 2*USB_EP1_SIZE/2;
+ 188   1          bin4addr = MAX_PACKET_SIZE_EP0/2 + 3*USB_EP1_SIZE/2;
+ 189   1          bin5addr = MAX_PACKET_SIZE_EP0/2 + 4*USB_EP1_SIZE/2;
+ 190   1      
+ 191   1          // Set all endpoints to not valid (except EP0IN and EP0OUT)
+ 192   1          /*Endpoints 0 to 5 IN valid bits (Inbulkval)*/
+ 193   1          inbulkval = 0x01;
+ 194   1          /*Endpoints 0 to 5 OUT valid bits (outbulkval)*/
+ 195   1          outbulkval = 0x01;
+ 196   1          /*Isochronous IN endpoint valid bits (inisoval)*/
+ 197   1          inisoval = 0x00;
+ 198   1          /*Isochronous OUT endpoint valid bits (outisoval)*/
+ 199   1          outisoval = 0x00;
+ 200   1      
+ 201   1          /* Switch ON Endpoint 1 */
+ 202   1          
+ 203   1          /*Endpoint 0 to 5 OUT interrupt enables (out_ien)* - out1ien */
+ 204   1          in_ien |= 0x02; 
+ 205   1          
+ 206   1          /*Endpoints 0 to 5 OUT valid bits (outbulkval)*/
+ 207   1          inbulkval |= 0x02;
+ 208   1          
+ 209   1          /*Endpoint 0 to 5 OUT interrupt enables (out_ien)*/
+ 210   1          out_ien |= 0x02;
+ 211   1          
+ 212   1          /*Endpoints 0 to 5 OUT valid bits (outbulkval)*/
+ 213   1          outbulkval |= 0x02;
+ 214   1          /* Endpoint 0 to 5 OUT byte count registers (outxbc) ?Maybe 0xff is register clear*/
+ 215   1          out1bc = 0xff;
+ 216   1          
+ 217   1          /* Switch ON Endpoint 2 */
+ 218   1          
+ 219   1          /*Endpoint 0 to 5 OUT interrupt enables (out_ien)* - out1ien */
+ 220   1          in_ien |= 0x04; 
+ 221   1          
+ 222   1          /*Endpoints 0 to 5 OUT valid bits (outbulkval)*/
+ 223   1          inbulkval |= 0x04;
+ 224   1          
+ 225   1          /*Endpoint 0 to 5 OUT interrupt enables (out_ien)*/
+ 226   1          out_ien |= 0x04;
+ 227   1          
+ 228   1          /*Endpoints 0 to 5 OUT valid bits (outbulkval)*/
+ 229   1          outbulkval |= 0x04;
+ 230   1          /* Endpoint 0 to 5 OUT byte count registers (outxbc) ?Maybe 0xff is register clear*/
+ 231   1          out2bc = 0xff;    
+ 232   1          
+ 233   1          /* Switch ON Endpoint 3 */
+ 234   1          
+ 235   1          /*Endpoint 0 to 5 OUT interrupt enables (out_ien)* - out1ien */
+ 236   1          in_ien |= 0x08; 
+ 237   1          
+ 238   1          /*Endpoints 0 to 5 OUT valid bits (outbulkval)*/
+ 239   1          inbulkval |= 0x08;
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 5   
+
+ 240   1          
+ 241   1          /*Endpoint 0 to 5 OUT interrupt enables (out_ien)*/
+ 242   1          out_ien |= 0x08;
+ 243   1          
+ 244   1          /*Endpoints 0 to 5 OUT valid bits (outbulkval)*/
+ 245   1          outbulkval |= 0x08;
+ 246   1          
+ 247   1          /* Endpoint 0 to 5 OUT byte count registers (outxbc) ?Maybe 0xff is register clear*/
+ 248   1          out3bc = 0xff;    
+ 249   1          
+ 250   1            
+ 251   1      }
+ 252          
+ 253          static void packetizer_isr_ep0_in()
+ 254          {
+ 255   1          uint8_t code* data_ptr; 
+ 256   1          uint8_t size, i;
+ 257   1          // We are getting a ep0in interupt when the host send ACK and do not have any more data to send
+ 258   1          if(packetizer_data_size == 0)
+ 259   1          {
+ 260   2              in0bc = 0;
+ 261   2              USB_EP0_HSNAK();
+ 262   2              return;
+ 263   2          }
+ 264   1      
+ 265   1          size = MIN(packetizer_data_size, packetizer_pkt_size);
+ 266   1      
+ 267   1          // Copy data to the USB-controller buffer
+ 268   1          data_ptr = packetizer_data_ptr;
+ 269   1          for(i = 0; i < size;i++)
+ 270   1          {
+ 271   2              in0buf[i] = *data_ptr++;
+ 272   2          }
+ 273   1      
+ 274   1          // Tell the USB-controller how many bytes to send
+ 275   1          // If a IN is received from host after this the USB-controller will send the data
+ 276   1          in0bc = size;
+ 277   1      
+ 278   1          // Update the packetizer data
+ 279   1          packetizer_data_ptr += size;
+ 280   1          packetizer_data_size -= size;
+ 281   1      }
+ 282          
+ 283          
+ 284          
+ 285          static void usb_process_get_status()
+ 286          {
+ 287   1          in0buf[0] = in0buf[1] = 0x00;
+ 288   1          if((usb_state == ADDRESSED) && (setupbuf[4] == 0x00))
+ 289   1          {
+ 290   2              in0bc = 0x02;
+ 291   2          }
+ 292   1          else if(usb_state == CONFIGURED)
+ 293   1          {
+ 294   2              switch(bmRequestType)
+ 295   2              {
+ 296   3                  case 0x80: // Device
+ 297   3                      if((usb_bm_state & USB_BM_STATE_ALLOW_REMOTE_WAKEUP ) == USB_BM_STATE_ALLOW_REMOTE_WAKEUP)
+ 298   3                      {
+ 299   4                          in0buf[0] = 0x02;
+ 300   4                      }
+ 301   3                      in0bc = 0x02;
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 6   
+
+ 302   3                      break;
+ 303   3      
+ 304   3                  case 0x81: // Interface
+ 305   3                      in0bc = 0x02;
+ 306   3                      break;
+ 307   3      
+ 308   3                  case 0x82: // Endpoint
+ 309   3                      if((setupbuf[4] & 0x80) == 0x80) // IN endpoints
+ 310   3                          in0buf[0] = in1cs;
+ 311   3                      else
+ 312   3                          in0buf[0] = out1cs;
+ 313   3                      in0bc = 0x02;
+ 314   3                      break;
+ 315   3                  default:
+ 316   3                      USB_EP0_STALL();
+ 317   3                      break;
+ 318   3              }
+ 319   2          }
+ 320   1          else
+ 321   1          {
+ 322   2              // We should not be in this state
+ 323   2              USB_EP0_STALL();
+ 324   2          }
+ 325   1      }
+ 326          
+ 327          static void usb_process_get_descriptor()
+ 328          { 
+ 329   1          packetizer_pkt_size = MAX_PACKET_SIZE_EP0;
+ 330   1          // Switch on descriptor type
+ 331   1          switch(setupbuf[3])
+ 332   1          {
+ 333   2              case USB_DESC_DEVICE:
+ 334   2                  packetizer_data_ptr = (uint8_t*)&g_usb_dev_desc;
+ 335   2                  packetizer_data_size = MIN(setupbuf[6], sizeof(usb_dev_desc_t));
+ 336   2                  packetizer_isr_ep0_in();
+ 337   2                  break;
+ 338   2      
+ 339   2              case USB_DESC_CONFIGURATION:
+ 340   2                  // For now we just support one configuration. The asked configuration is stored in LSB(wValue)
+             -.
+ 341   2                  packetizer_data_ptr = (uint8_t*)&g_usb_conf_desc;
+ 342   2                  packetizer_data_size = MIN(setupbuf[6], sizeof(usb_conf_desc_bootloader_t));
+ 343   2                  packetizer_isr_ep0_in();
+ 344   2                  break;
+ 345   2      
+ 346   2              case USB_DESC_STRING:
+ 347   2                  // For now we just support english as string descriptor language.
+ 348   2                  if(setupbuf[2] == 0x00) {
+ 349   3                      packetizer_data_ptr = string_zero;
+ 350   3                      packetizer_data_size = MIN(setupbuf[6], sizeof(string_zero));
+ 351   3                      packetizer_isr_ep0_in();
+ 352   3                  } else if (setupbuf[2] == 0x01) {
+ 353   3                      packetizer_data_ptr = g_usb_string_desc_1;
+ 354   3                      packetizer_data_size = MIN(setupbuf[6], packetizer_data_ptr[0]);
+ 355   3                      packetizer_isr_ep0_in();
+ 356   3                  } else if (setupbuf[2] == 0x02) {
+ 357   3                      packetizer_data_ptr = g_usb_string_desc_2;
+ 358   3                      packetizer_data_size = MIN(setupbuf[6], packetizer_data_ptr[0]);
+ 359   3                      packetizer_isr_ep0_in();              
+ 360   3                  } else if (setupbuf[2] == 0xEE) {
+ 361   3                    /* Microsoft OS String Descriptor */
+ 362   3                      packetizer_data_ptr = g_usb_string_desc_ee;
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 7   
+
+ 363   3                      packetizer_data_size = MIN(setupbuf[6], packetizer_data_ptr[0]);
+ 364   3                      packetizer_isr_ep0_in();  
+ 365   3                  } else {
+ 366   3                      USB_EP0_STALL();
+ 367   3                  }
+ 368   2                  break;
+ 369   2              case USB_DESC_INTERFACE:
+ 370   2              case USB_DESC_ENDPOINT:
+ 371   2              case USB_DESC_DEVICE_QUAL:
+ 372   2              case USB_DESC_OTHER_SPEED_CONF:
+ 373   2              case USB_DESC_INTERFACE_POWER:
+ 374   2                  USB_EP0_STALL();
+ 375   2                  break;
+ 376   2              default:
+ 377   2                  USB_EP0_HSNAK();
+ 378   2                  break;
+ 379   2          }
+ 380   1      }
+ 381          
+ 382          static void isr_sudav()
+ 383          {
+ 384   1          bmRequestType = setupbuf[0];
+ 385   1              
+ 386   1          /* Host-to-device standart request */
+ 387   1          if((bmRequestType & 0x60 ) == 0x00)
+ 388   1          {
+ 389   2              switch(setupbuf[1])
+ 390   2              {
+ 391   3                 case USB_REQ_GET_DESCRIPTOR:
+ 392   3                     usb_process_get_descriptor();
+ 393   3                     break;
+ 394   3      
+ 395   3                 case USB_REQ_GET_STATUS:
+ 396   3                     usb_process_get_status();
+ 397   3                     break;
+ 398   3      
+ 399   3                  case USB_REQ_SET_ADDRESS:
+ 400   3                     usb_state = ADDRESSED;
+ 401   3                     usb_current_config = 0x00;
+ 402   3                     break;
+ 403   3      
+ 404   3                  case USB_REQ_GET_CONFIGURATION:
+ 405   3                      switch(usb_state)
+ 406   3                      {
+ 407   4                          case ADDRESSED:
+ 408   4                              in0buf[0] = 0x00;
+ 409   4                              in0bc = 0x01;
+ 410   4                              break;
+ 411   4                          case CONFIGURED:
+ 412   4                              in0buf[0] = usb_current_config;
+ 413   4                              in0bc = 0x01;
+ 414   4                              break;
+ 415   4                          case ATTACHED:
+ 416   4                          case POWERED:
+ 417   4                          case SUSPENDED:
+ 418   4                          case DEFAULT:
+ 419   4                          default:
+ 420   4                              USB_EP0_STALL();
+ 421   4                              break;
+ 422   4                      }
+ 423   3                      break;
+ 424   3      
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 8   
+
+ 425   3                  case USB_REQ_SET_CONFIGURATION:
+ 426   3                      switch(setupbuf[2])
+ 427   3                      {
+ 428   4                          case 0x00:
+ 429   4                              usb_state = ADDRESSED;
+ 430   4                              usb_current_config = 0x00;
+ 431   4                              USB_EP0_HSNAK();
+ 432   4                              break;
+ 433   4                          case 0x01:
+ 434   4                              usb_state = CONFIGURED;
+ 435   4                              usb_bm_state |= USB_BM_STATE_CONFIGURED;
+ 436   4                              usb_current_config = 0x01;
+ 437   4                              USB_EP0_HSNAK();
+ 438   4                              break;
+ 439   4                          default:
+ 440   4                              USB_EP0_STALL();
+ 441   4                              break;
+ 442   4                      }
+ 443   3                     break;
+ 444   3      
+ 445   3                  case USB_REQ_GET_INTERFACE: // GET_INTERFACE
+ 446   3                      in0buf[0] = usb_current_alt_interface;
+ 447   3                      in0bc = 0x01;
+ 448   3                      break;
+ 449   3      
+ 450   3                  case USB_REQ_SET_DESCRIPTOR:
+ 451   3                  case USB_REQ_SET_INTERFACE: // SET_INTERFACE
+ 452   3                  case USB_REQ_SYNCH_FRAME:   // SYNCH_FRAME
+ 453   3                  default:
+ 454   3                      USB_EP0_STALL();
+ 455   3                      break;
+ 456   3              }
+ 457   2          } 
+ 458   1          // bmRequestType = 0 01 xxxxx : Data transfer direction: Host-to-device, Type: Class
+ 459   1          else if((bmRequestType & 0x60 ) == 0x20)  // Class request
+ 460   1          {
+ 461   2              if(setupbuf[6] != 0 && ((bmRequestType & 0x80) == 0x00))
+ 462   2              {
+ 463   3                  // If there is a OUT-transaction associated with the Control-Transfer-Write we call the callba
+             -ck
+ 464   3                  // when the OUT-transaction is finished. Note that this function do not handle several out tra
+             -nsactions.
+ 465   3                  out0bc = 0xff;
+ 466   3              }
+ 467   2              else
+ 468   2              {
+ 469   3                  USB_EP0_HSNAK();
+ 470   3              }
+ 471   2          } 
+ 472   1          /* Extended Compat ID OS Descriptor setupbuf[1] (bRequest) is equal to MS_VendorCode (0xAA is current pr
+             -ogram)*/
+ 473   1          else if(bmRequestType == 0xC0 && setupbuf[1] == MS_VENDORCODE) 
+ 474   1          {
+ 475   2              packetizer_pkt_size = MAX_PACKET_SIZE_EP0;
+ 476   2              //xprintf("Extended Compat ID\r");
+ 477   2              packetizer_data_ptr = g_usb_extended_compat_id;
+ 478   2              packetizer_data_size = MIN(setupbuf[6], packetizer_data_ptr[0]);
+ 479   2              packetizer_isr_ep0_in();  
+ 480   2          }
+ 481   1          /* Extended Properties OS Descriptor */
+ 482   1          else if(bmRequestType == 0xC1 && setupbuf[1] == MS_VENDORCODE)
+ 483   1          {
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 9   
+
+ 484   2              packetizer_pkt_size = MAX_PACKET_SIZE_EP0;
+ 485   2              //xprintf("Extended Properties ID\r");
+ 486   2              packetizer_data_ptr = g_usb_extended_proper_os;
+ 487   2              packetizer_data_size = MIN(setupbuf[6], packetizer_data_ptr[0]);
+ 488   2              packetizer_isr_ep0_in();        
+ 489   2          }
+ 490   1          else  // Unknown request type
+ 491   1          {
+ 492   2              USB_EP0_STALL();
+ 493   2          }
+ 494   1      }
+ 495          
+ 496          void usb_irq(void)
+ 497          {
+ 498   1          uint8_t i;
+ 499   1          uint8_t temp_irq;
+ 500   1      
+ 501   1          // Split case into an if and a switch to force Keil into not using a library function:
+ 502   1          if (ivec == INT_USBRESET)
+ 503   1          {
+ 504   2              /*The USB interrupt request register (usbirq)  - clear USB reset interrupt request*/
+ 505   2              usbirq = 0x10;
+ 506   2              usb_state = DEFAULT;
+ 507   2              usb_current_config = 0;
+ 508   2              usb_current_alt_interface = 0;
+ 509   2              usb_bm_state = 0;
+ 510   2          }
+ 511   1          else
+ 512   1          {
+ 513   2              switch(ivec)
+ 514   2              {
+ 515   3                  case INT_SUDAV: /*Setup data valid interrupt*/
+ 516   3                      usbirq = 0x01;
+ 517   3                      isr_sudav();
+ 518   3                      break;
+ 519   3                  case INT_SOF: /*Start of frame interrupt (sofir)*/
+ 520   3                      usbirq = 0x02;
+ 521   3                      break;
+ 522   3                  case INT_SUTOK: /*Setup token interrupt*/
+ 523   3                      usbirq = 0x04;
+ 524   3                      packetizer_data_ptr = NULL;
+ 525   3                      packetizer_data_size = 0;
+ 526   3                      packetizer_pkt_size = 0;
+ 527   3                      break;
+ 528   3                  case INT_SUSPEND: /*Suspend interrupt (suspir)*/
+ 529   3                      usbirq = 0x08;
+ 530   3                      break;
+ 531   3                  case INT_EP0IN:
+ 532   3                      in_irq = 0x01;
+ 533   3                      packetizer_isr_ep0_in();
+ 534   3                      break;
+ 535   3                  case INT_EP0OUT:
+ 536   3                      out_irq = 0x01;
+ 537   3                      packetizer_data_size = 0;
+ 538   3                      USB_EP0_HSNAK();
+ 539   3                      break;
+ 540   3                  case INT_EP1IN:
+ 541   3                      in_irq = 0x02;
+ 542   3                      int_ep1in_handler();
+ 543   3                      break;
+ 544   3                  case INT_EP2IN:
+ 545   3                      in_irq = 0x04;
+C51 COMPILER V9.53.0.0   USB                                                               08/14/2015 11:46:56 PAGE 10  
+
+ 546   3                      int_ep2in_flag = true;
+ 547   3                      break;
+ 548   3                  case INT_EP3IN:
+ 549   3                      in_irq = 0x08;
+ 550   3                      break;
+ 551   3                  
+ 552   3                  case INT_EP1OUT:
+ 553   3                      // Clear interrupt
+ 554   3                      out_irq = 0x02;     
+ 555   3                      packet_received = true;
+ 556   3                      //make dummy read
+ 557   3                      int_ep1out_handler();
+ 558   3                      out1bc = 0xff;
+ 559   3                      break;
+ 560   3                  default:
+ 561   3                      break;
+ 562   3              }
+ 563   2          }
+ 564   1      }
+*** WARNING C280 IN LINE 498 OF ..\usb.c: 'i': unreferenced local variable
+*** WARNING C280 IN LINE 499 OF ..\usb.c: 'temp_irq': unreferenced local variable
+ 565          
+*** WARNING C290 IN LINE 148 OF ..\usb.c: missing return value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1115    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)

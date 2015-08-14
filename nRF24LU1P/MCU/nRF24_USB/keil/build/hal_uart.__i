@@ -1,0 +1,1 @@
+"..\..\..\hal\nrf24lu1p\hal_uart.c" OMF2 ROM(COMPACT) OPTIMIZE (9,SPEED) BROWSE MODC2 INCDIR(..\..\..\hal;..\..\..\hal\nrf24lu1p;..\..\..\compiler\c51;..\..\..\compiler\common;..\TPF) PRINT(.\list\hal_uart.lst) TABS (2) PREPRINT(.\list\hal_uart.i) OBJECT(.\build\hal_uart.obj)
